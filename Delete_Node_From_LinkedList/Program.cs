@@ -88,62 +88,74 @@ namespace Delete_Node_From_LinkedList
                     }
                     else
                     {
-                        root = DeleteNode_func(root,Length-position);
+                        root = DeleteNode_func(root,position);
                     }
                 }
                
             }
 
-            private Node DeleteNode_func(Node root,int position)
+            private Node DeleteNode_func(Node root, int n)
             {
-                if (root== null)
+                if (root == null)
                 {
                     return root;
                 }
                 else
                 {
-                    if (position == 0)
+                 
+                    int Length = getLength(root);
+                    n = Length - n;
+                    
+                    if (Length == 1 && n==0)
                     {
                         root = root.next;
                         return root;
                     }
                     else
                     {
-                        Node temp = root;
-                        Node temp1 = root.next;
-                        int n = 0;
-                        while(temp1 !=null && n < position-1)
+                        Node p = root;
+                        Node q = root.next;
+                        
+                        if (n == 0)
                         {
-                            n++;
-                            temp = temp.next;
-                            temp1 = temp1.next;
+                            p = p.next;
+                            q = q.next;
                         }
-                        
-                         temp.next = temp1.next;
-                        
+                        else
+                        {
+                            int counter = 1;
+
+                            while (q != null && counter < n)
+                            {
+                                counter++;
+                                p = p.next;
+                                q = q.next;
+                            }
+                        }
+                        if (q.next != null)
+                        {
+                            p.next = q.next;
+                        }
+                        else
+                        {
+                            p.next = null;
+                        }
 
                         return root;
                     }
-                    //while(position >=0)
-                    //{
-                    //    root = root.next;
-                    //}
                 }
             }
-
             public int getLength(Node root)
             {
                 Node temp = root;
-                int count=0;
-                while(temp !=null)
+                int count = 0;
+                while (temp != null)
                 {
                     count++;
                     temp = temp.next;
                 }
                 return count;
             }
-            ///////////////////////
-
         }
         static void Main(string[] args)
         {
@@ -153,14 +165,12 @@ namespace Delete_Node_From_LinkedList
             ls.insertRoot(3);
             ls.insertRoot(4);
             ls.insertRoot(5);
-            ls.insertRoot(6);
-            ls.insertRoot(7);
-            ls.insertRoot(8);
+
 
             ls.showList();
             Console.WriteLine("");
             //ls.ReveseList();
-            ls.DeleteNode(1);
+            ls.DeleteNode(5);
             ls.showList();
             Console.ReadLine();
 
